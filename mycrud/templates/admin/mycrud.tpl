@@ -1,4 +1,4 @@
-<h2>My CRUD</h2>
+<h2>My CRUD AREA</h2>
 
 <div class="crud-actions">
     <a href="?module=mycrud&action=create">Create New</a> </div>
