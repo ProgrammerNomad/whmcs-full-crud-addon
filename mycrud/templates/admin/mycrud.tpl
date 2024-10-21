@@ -1,13 +1,13 @@
-<h2>Full CRUD</h2>
+<h2>My CRUD</h2>
 
 <div class="crud-actions">
-    <a href="?module=full_crud&action=create" class="btn btn-primary">Create New</a>
+    <a href="?module=mycrud&action=create" class="btn btn-primary">Create New</a>
 </div>
 
-<link href="{$WEB_ROOT}/modules/addons/full_crud/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="{$WEB_ROOT}/modules/addons/mycrud/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 
-<script src="{$WEB_ROOT}/modules/addons/full_crud/js/jquery-3.7.1.min.js"></script>
-<script src="{$WEB_ROOT}/modules/addons/full_crud/js/jquery.dataTables.min.js"></script>
+<script src="{$WEB_ROOT}/modules/addons/mycrud/js/jquery-3.7.1.min.js"></script>
+<script src="{$WEB_ROOT}/modules/addons/mycrud/js/jquery.dataTables.min.js"></script>
 
 <table id="myTable" class="table table-striped">
     <thead>
@@ -25,8 +25,8 @@
             <td>{$item.name}</td>
             <td>{$item.value}</td>
             <td>
-                <a href="?module=full_crud&action=update&id={$item.id}" class="btn btn-sm btn-warning">Edit</a>
-                <a href="?module=full_crud&action=delete&id={$item.id}" onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</a>
+                <a href="?module=mycrud&action=update&id={$item.id}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="?module=mycrud&action=delete&id={$item.id}" onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</a>
             </td>
         </tr>
     {/foreach}
@@ -41,7 +41,7 @@
 
 {if $action eq 'create' || $action eq 'update'}
     <h3>{if $action eq 'create'}Create{else}Update{/if} Data</h3>
-    <form method="post" action="?module=full_crud&action={if $action eq 'create'}create{else}update{/if}">
+    <form method="post" action="?module=mycrud&action={if $action eq 'create'}create{else}update{/if}">
         <input type="hidden" name="id" value="{$data[0].id}">
         <div class="form-group">
             <label for="name">Name:</label>

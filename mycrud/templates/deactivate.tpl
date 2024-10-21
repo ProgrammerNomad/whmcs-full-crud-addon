@@ -1,4 +1,4 @@
-<p>Are you sure you want to deactivate Full CRUD?</p>
+<p>Are you sure you want to deactivate My CRUD?</p>
 
 <form method="post" action="">
     <input type="hidden" name="action" value="deactivate" />
