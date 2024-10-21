@@ -38,21 +38,3 @@
         $('#myTable').DataTable();
     });
 </script>
-
-{if $action eq 'create' || $action eq 'update'}
-    <h3>{if $action eq 'create'}Create{else}Update{/if} Data</h3>
-    <form method="post" action="?module=mycrud&action={if $action eq 'create'}create{else}update{/if}">
-        <input type="hidden" name="id" value="{$data[0].id}">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name" value="{$data[0].name}" class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label for="value">Value:</label>
-            <textarea name="value" id="value" class="form-control">{$data[0].value}</textarea>
-        </div>
-
-        <input type="submit" value="{if $action eq 'create'}Create{else}Update{/if}" class="btn btn-primary">
-    </form>
-{/if}

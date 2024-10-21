@@ -10,7 +10,7 @@ function mycrud_config() {
     $configarray = array(
         "name" => "My CRUD",
         "description" => "My custom WHMCS addon with full CRUD operations.",
-        "version" => "1.0",
+        "version" => "1.1", // Updated version number
         "author" => "Shiv Singh",
         "language" => "english",
         "fields" => array()
@@ -20,15 +20,15 @@ function mycrud_config() {
 
 function mycrud_activate() {
     try {
-        if (!Capsule::schema()->hasTable('mod_mycrud_data')) { // Updated table name
-            Capsule::schema()->create('mod_mycrud_data', function ($table) { // Updated table name
+        if (!Capsule::schema()->hasTable('mod_mycrud_data')) {
+            Capsule::schema()->create('mod_mycrud_data', function ($table) {
                 $table->increments('id');
                 $table->string('name');
                 $table->text('value');
             });
 
-            if (!Capsule::table('mod_mycrud_data')->count()) { // Updated table name
-                Capsule::table('mod_mycrud_data')->insert([ // Updated table name
+            if (!Capsule::table('mod_mycrud_data')->count()) {
+                Capsule::table('mod_mycrud_data')->insert([
                     ['name' => 'Initial Data 1', 'value' => 'Value 1'],
                     ['name' => 'Initial Data 2', 'value' => 'Value 2']
                 ]);
@@ -44,7 +44,7 @@ function mycrud_activate() {
 function mycrud_deactivate() {
     if (isset($_POST['drop_table']) && $_POST['drop_table'] == '1') {
         try {
-            Capsule::schema()->dropIfExists('mod_mycrud_data'); // Updated table name
+            Capsule::schema()->dropIfExists('mod_mycrud_data');
 
             return array('status'=>'success','description'=>'My CRUD deactivated and table dropped successfully.');
         } catch (Exception $e) {
@@ -55,38 +55,10 @@ function mycrud_deactivate() {
     }
 }
 
-function mycrud_output($vars) {
-    require_once __DIR__ . '/lib/FullCRUD.php'; // Assuming the class name is still FullCRUD
-    $fullCRUD = new FullCRUD();
-
+function mycrud_output($vars)
+{
     $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 
-    switch ($action) {
-        case 'create':
-            $fullCRUD->createData($_POST);
-            break;
-        case 'read':
-            $data = $fullCRUD->readData();
-            break;
-        case 'update':
-            $fullCRUD->updateData($_POST);
-            break;
-        case 'delete':
-            $fullCRUD->deleteData($_POST['id']);
-            break;
-        default:
-            $data = $fullCRUD->readData();
-            break;
-    }
-
-    $templatevars = array(
-        'data' => $data,
-        'action' => $action,
-        'WEB_ROOT' => $vars['WEB_ROOT']
-    );
-
-    return array(
-        'templatefile' => 'admin/mycrud', 
-        'vars' => $templatevars
-    );
+    $dispatcher = new \WHMCS\Module\Addon\MyCRUD\MyCRUDDispatcher();
+    return $dispatcher->dispatch($action, $vars);
 }
